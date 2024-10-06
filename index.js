@@ -1,0 +1,74 @@
+let isJumping = false;
+let treeMoving = null;
+
+document.getElementById('go-button').addEventListener('click', startGame);
+
+function startGame() {
+    document.getElementById('cover-container').style.display = 'none'; // Hide the cover
+    document.getElementById('game-container').style.display = 'block'; // Show the game
+
+    // Start the jumping action on key press
+    document.addEventListener('keydown', function(event) {
+        if (event.code === 'Space' && !isJumping) {
+            jump();
+        }
+    });
+
+    // Start the tree movement
+    treeMoving = setInterval(createTree, 2000); // Move trees every 2 seconds
+}
+
+function jump() {
+    isJumping = true;
+    const monkey = document.getElementById('character');
+    
+    // Initial upward jump
+    monkey.style.bottom = '200px'; // Adjust jump height
+    
+    // Return to original position after some time
+    setTimeout(() => {
+        monkey.style.bottom = '100px'; // Reset to original position
+        isJumping = false; // Allow for a new jump
+    }, 300);
+}
+
+function createTree() {
+    const tree = document.getElementById('tree');
+    
+    // Randomize the tree's position
+    let treePosition = Math.random() * 300 + 500; // Random position off the right side
+    tree.style.right = `${treePosition}px`; // Set new position for next tree
+
+    // Move tree left across the screen
+    const moveTreeInterval = setInterval(() => {
+        let currentRight = parseInt(tree.style.right);
+        if (currentRight < -70) {
+            clearInterval(moveTreeInterval); // Stop when the tree is out of view
+        } else {
+            currentRight -= 2; // Move the tree left
+            tree.style.right = `${currentRight}px`;
+        }
+
+        // Collision detection
+        if (isCollision(tree)) {
+            alert("Game Over!");
+            clearInterval(treeMoving); // Stop moving trees
+            tree.style.display = 'none'; // Hide tree
+            location.reload(); // Reload the page to restart
+        }
+    }, 20);
+}
+
+// Function to check collision
+function isCollision(tree) {
+    const monkey = document.getElementById('character');
+    const monkeyRect = monkey.getBoundingClientRect();
+    const treeRect = tree.getBoundingClientRect();
+
+    return !(
+        monkeyRect.right < treeRect.left ||
+        monkeyRect.left > treeRect.right ||
+        monkeyRect.bottom < treeRect.top ||
+        monkeyRect.top > treeRect.bottom
+    );
+}
