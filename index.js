@@ -1,5 +1,6 @@
 let isJumping = false;
 let treeMoving = null;
+let score = 0; // Initialize score
 
 document.getElementById('go-button').addEventListener('click', startGame);
 
@@ -14,7 +15,7 @@ function startGame() {
         }
     });
 
-    // Start the tree movement
+    // Start the tree movement and score increment
     treeMoving = setInterval(createTree, 2000); // Move trees every 2 seconds
 }
 
@@ -23,7 +24,7 @@ function jump() {
     const monkey = document.getElementById('character');
     
     // Initial upward jump
-    monkey.style.bottom = '200px'; // Adjust jump height
+    monkey.style.bottom = '250px'; // Adjust jump height
     
     // Return to original position after some time
     setTimeout(() => {
@@ -37,12 +38,19 @@ function createTree() {
     
     // Randomize the tree's position
     let treePosition = Math.random() * 300 + 500; // Random position off the right side
-    tree.style.right = `${treePosition}px`; // Set new position for next tree
+    tree.style.right = `${treePosition}px`; // Set new position for the next tree
 
     // Move tree left across the screen
     const moveTreeInterval = setInterval(() => {
         let currentRight = parseInt(tree.style.right);
-        if (currentRight < -70) {
+        
+        // Increment score as tree moves left (every 20 pixels)
+        if (currentRight < 300 && currentRight > 0) {
+            score += 1; // Increment score
+            document.getElementById('score').innerText = `Score: ${score}`; // Update score display
+        }
+
+        if (currentRight < -100) {
             clearInterval(moveTreeInterval); // Stop when the tree is out of view
         } else {
             currentRight -= 2; // Move the tree left
@@ -51,9 +59,8 @@ function createTree() {
 
         // Collision detection
         if (isCollision(tree)) {
-            alert("Game Over!");
+            alert(`Game Over! Your final score is: ${score}`);
             clearInterval(treeMoving); // Stop moving trees
-            tree.style.display = 'none'; // Hide tree
             location.reload(); // Reload the page to restart
         }
     }, 20);
