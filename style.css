@@ -1,0 +1,83 @@
+* {
+    box-sizing: border-box; /* Ensure padding and borders are included in element's total width and height */
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #B0E0E6; /* Light background color */
+}
+
+#cover-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://i.ibb.co/XF1Lx9B/Untitled-design-41.png"');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#title {
+    margin-bottom: 20px;
+    width: 80%; /* Responsive title */
+}
+
+#go-button {
+    cursor: pointer;
+    border: none;
+    background: transparent; /* Remove button background */
+}
+
+#game-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://i.ibb.co/txRhKFj/Untitled-design-42.png'); /* Background for the game */
+    background-size: cover;
+    background-position: center;
+}
+
+#game-area {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Prevent elements from overflowing */
+}
+
+#character {
+    position: absolute;
+    bottom: 100px; /* Initial position of the monkey */
+    left: 50px; /* Starting position of the monkey */
+    width: 100px; /* Size of the monkey */
+    transition: bottom 0.3s ease; /* Animate the jumping */
+}
+
+#tree {
+    position: absolute;
+    bottom: 100px; /* Same bottom position as the monkey */
+    right: 0; /* Start off screen to the right */
+    width: 70px; /* Width of the tree */
+    height: 70px; /* Adjust the height to suit your tree image */
+    background-image: url('https://i.ibb.co/7JNRvTQ/download-removebg-preview-2.png'); /* Tree image */
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: move-tree 2s linear infinite; /* Tree moving animation */
+}
+
+/* Animation for the tree */
+@keyframes move-tree {
+    0% {
+        right: -70px; /* Start off screen */
+    }
+    100% {
+        right: 100%; /* Move to the left until out of the view */
+    }
+}
