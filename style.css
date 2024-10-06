@@ -54,7 +54,7 @@ body {
 
 #character {
     position: absolute;
-    bottom: 100px; /* Initial position of the monkey */
+    bottom: 120px; /* Adjusted height for monkey to stand above ground */
     left: 50px; /* Starting position of the monkey */
     width: 150px; /* Bigger size of the monkey */
     transition: bottom 0.3s ease; /* Animate the jumping */
@@ -62,14 +62,13 @@ body {
 
 #tree {
     position: absolute;
-    bottom: 100px; /* Same bottom position as the monkey */
+    bottom: 120px; /* Same bottom position as the monkey */
     right: 0; /* Start off screen to the right */
     width: 100px; /* Bigger width of the tree */
     height: 100px; /* Adjust the height to be larger */
     background-image: url('https://i.ibb.co/722qVcf/Untitled-design-44.png'); /* Tree image */
     background-size: contain;
     background-repeat: no-repeat;
-    animation: move-tree 2s linear infinite; /* Tree moving animation */
 }
 
 #score {
@@ -78,6 +77,15 @@ body {
     left: 20px;
     font-size: 24px; /* Bigger text for score */
     color: white; /* White color for better visibility */
+}
+
+#ground {
+    position: absolute;
+    bottom: 0; /* Aligns at the bottom of the game area */
+    width: 100%;
+    height: 50px; /* Height of the ground */
+    background-color: #8B4513; /* Brown color for ground */
+    z-index: 1; /* Ensure it's below the character */
 }
 
 /* Animation for the tree */
