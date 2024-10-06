@@ -16,7 +16,7 @@ body {
     position: relative;
     width: 100%;
     height: 100%;
-    background-image: url('https://i.ibb.co/XF1Lx9B/Untitled-design-41.png"');
+    background-image: url('https://i.ibb.co/XF1Lx9B/Untitled-design-41.png');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -56,7 +56,7 @@ body {
     position: absolute;
     bottom: 100px; /* Initial position of the monkey */
     left: 50px; /* Starting position of the monkey */
-    width: 100px; /* Size of the monkey */
+    width: 150px; /* Bigger size of the monkey */
     transition: bottom 0.3s ease; /* Animate the jumping */
 }
 
@@ -64,18 +64,26 @@ body {
     position: absolute;
     bottom: 100px; /* Same bottom position as the monkey */
     right: 0; /* Start off screen to the right */
-    width: 70px; /* Width of the tree */
-    height: 70px; /* Adjust the height to suit your tree image */
+    width: 100px; /* Bigger width of the tree */
+    height: 100px; /* Adjust the height to be larger */
     background-image: url('https://i.ibb.co/7JNRvTQ/download-removebg-preview-2.png'); /* Tree image */
     background-size: contain;
     background-repeat: no-repeat;
     animation: move-tree 2s linear infinite; /* Tree moving animation */
 }
 
+#score {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 24px; /* Bigger text for score */
+    color: white; /* White color for better visibility */
+}
+
 /* Animation for the tree */
 @keyframes move-tree {
     0% {
-        right: -70px; /* Start off screen */
+        right: -100px; /* Start off screen based on new width */
     }
     100% {
         right: 100%; /* Move to the left until out of the view */
