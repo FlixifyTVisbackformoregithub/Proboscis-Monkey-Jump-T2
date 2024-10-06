@@ -22,15 +22,15 @@ function startGame() {
 function jump() {
     isJumping = true;
     const monkey = document.getElementById('character');
-    
+
     // Initial upward jump
     monkey.style.bottom = '250px'; // Adjust jump height
-    
+
     // Return to original position after some time
     setTimeout(() => {
         monkey.style.bottom = '100px'; // Reset to original position
         isJumping = false; // Allow for a new jump
-    }, 300);
+    }, 500); // Increased duration to allow character to stay in the air a bit longer
 }
 
 function createTree() {
