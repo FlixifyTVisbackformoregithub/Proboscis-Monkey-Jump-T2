@@ -66,7 +66,7 @@ body {
     right: 0; /* Start off screen to the right */
     width: 100px; /* Bigger width of the tree */
     height: 100px; /* Adjust the height to be larger */
-    background-image: url('https://i.ibb.co/7JNRvTQ/download-removebg-preview-2.png'); /* Tree image */
+    background-image: url('https://i.ibb.co/722qVcf/Untitled-design-44.png'); /* Tree image */
     background-size: contain;
     background-repeat: no-repeat;
     animation: move-tree 2s linear infinite; /* Tree moving animation */
