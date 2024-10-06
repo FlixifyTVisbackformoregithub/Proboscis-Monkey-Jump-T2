@@ -1,4 +1,5 @@
 let isJumping = false;
+let isDead = false; // New state for the character's death
 let treeMoving = null;
 let score = 0; // Initialize score
 
@@ -10,7 +11,8 @@ function startGame() {
 
     // Start the jumping action on key press
     document.addEventListener('keydown', function(event) {
-        if (event.code === 'Space' && !isJumping) {
+        // Only allow jumping with space key and only if not jumping or dead
+        if (event.code === 'Space' && !isJumping && !isDead) {
             jump();
         }
     });
@@ -20,7 +22,7 @@ function startGame() {
 }
 
 function jump() {
-    isJumping = true;
+    isJumping = true; // Set jumping state
     const monkey = document.getElementById('character');
 
     // Initial upward jump
@@ -35,7 +37,7 @@ function jump() {
 
 function createTree() {
     const tree = document.getElementById('tree');
-    
+
     // Randomize the tree's position
     let treePosition = Math.random() * 300 + 500; // Random position off the right side
     tree.style.right = `${treePosition}px`; // Set new position for the next tree
@@ -43,8 +45,8 @@ function createTree() {
     // Move tree left across the screen
     const moveTreeInterval = setInterval(() => {
         let currentRight = parseInt(tree.style.right);
-        
-        // Increment score as tree moves left (every 20 pixels)
+
+        // Increment score
         if (currentRight < 300 && currentRight > 0) {
             score += 1; // Increment score
             document.getElementById('score').innerText = `Score: ${score}`; // Update score display
@@ -58,12 +60,44 @@ function createTree() {
         }
 
         // Collision detection
-        if (isCollision(tree)) {
-            alert(`Game Over! Your final score is: ${score}`);
-            clearInterval(treeMoving); // Stop moving trees
-            location.reload(); // Reload the page to restart
+        if (isCollision(tree) && !isDead) {
+            die(); // Call the death function on collision
         }
     }, 20);
+}
+
+// Function to handle death
+function die() {
+    isDead = true; // Set death state
+    const monkey = document.getElementById('character');
+    monkey.classList.add('dead'); // Add 'dead' class for animation
+    showDeathSplatter(); // Show splatter effect
+
+    setTimeout(() => {
+        alert(`Oops, you killed your Proboscis Monkey! YOU KILLED IT!!! RESTART! DO BETTER NEXT TIME!!!`);
+        clearInterval(treeMoving); // Stop moving trees
+        location.reload(); // Reload the page to restart
+    }, 500); // Wait for the death animation before alerting
+}
+
+// Function to create splatter effect
+function showDeathSplatter() {
+    const splatterContainer = document.createElement('div');
+    splatterContainer.id = 'screen-splatter';
+
+    for (let i = 0; i < 20; i++) { // Create multiple splatter dots
+        const splatter = document.createElement('div');
+        splatter.classList.add('splatter');
+        const size = Math.random() * 50 + 10; // Size between 10px and 60px
+        splatter.style.width = `${size}px`;
+        splatter.style.height = `${size}px`;
+        splatter.style.top = `${Math.random() * window.innerHeight}px`; // Random vertical position
+        splatter.style.left = `${Math.random() * window.innerWidth}px`; // Random horizontal position
+        splatterContainer.appendChild(splatter);
+    }
+
+    document.body.appendChild(splatterContainer);
+    splatterContainer.style.display = 'block'; // Show splatter
 }
 
 // Function to check collision
